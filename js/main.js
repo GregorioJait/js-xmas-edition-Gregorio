@@ -17,18 +17,28 @@ function validarNombre(nombre) {
         
     }
 
+    return '';
 }
 
 function validarCiudad(ciudad) {
     if(ciudad === ''){
-        return "Selecciona una Ciudad"
+        return "Una ciudad tiene que estar seleccionada"
     }
+
+    return '';
 }
 
 function validarDescripcionRegalo(descripcionRegalo) {
     if(descripcionRegalo === ''){
-        return "Describi tu Regalo"
+        return "El campo descripcion no puede estar vacio"
     }
+
+    if(descripcionRegalo.length >= 100){
+        return "La descripcion debe tener menos de 100 caracteres"
+    }
+
+    return '';
+    
 }
 
 
