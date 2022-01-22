@@ -1,7 +1,7 @@
 
 const $form = document.querySelector("#carta-a-santa");
 
-const  nombre = $form.nombre.value;
+const nombre = $form.nombre.value;
 const ciudad = $form.ciudad.value;
 const comportamiento = $form.comportamiento.value;
 const descripcionRegalo = $form['descripcion-regalo'].value
@@ -15,6 +15,10 @@ function validarNombre(nombre) {
         return "Este campo debe tener menos de 50 caracteres";
 
         
+    }
+
+    if(!/^[a-zñ]+$/i.test(nombre)){
+        return "El nombre debe ser uno solo y contener solo letras";
     }
 
     return '';
@@ -37,13 +41,64 @@ function validarDescripcionRegalo(descripcionRegalo) {
         return "La descripcion debe tener menos de 100 caracteres"
     }
 
+    if(!/^[A-z0-9 ]+$/.test(descripcionRegalo)){
+        return "La descripcion solo acepta letras y numeros"
+    }
+
     return '';
     
 }
 
+function validarFormulario(event){
+    event.preventDefault();
+    const nombre = $form.nombre.value;
+    const ciudad = $form.ciudad.value;
+    const descripcionRegalo = $form['descripcion-regalo'].value
+
+    const errorNombre = validarNombre(nombre);
+    const errorCiudad = validarCiudad(ciudad);
+    const errorDescripcionRegalo = validarDescripcionRegalo(descripcionRegalo);
+    
+    const errores = {
+
+        nombre: errorNombre,
+        ciudad: errorCiudad,
+        descripcionRegalo: errorDescripcionRegalo,
 
 
+    };
+    
+    manejarErrores(errores)
 
+    
+}
+
+function manejarErrores(errores){
+   
+
+
+    if(errores.nombre) {
+        $form.nombre.className = "error";
+
+    } else {
+        $form.nombre.className = "";
+    }
+
+    if(errores.ciudad) {
+        $form.ciudad.className = "error";
+    } else {
+        $form.ciudad.className = "";
+    }
+
+    if(errores.descripcionRegalo){
+        $form["descripcion-regalo"].className = "error";
+    } else {
+        $form["descripcion-regalo"].className = "";
+    }
+
+}
+
+$form.onsubmit = validarFormulario;
 
 
 
