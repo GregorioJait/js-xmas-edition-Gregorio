@@ -1,6 +1,6 @@
 
-const $form = document.querySelector("#carta-a-santa");
 
+const $form = document.querySelector("#carta-a-santa");
 const nombre = $form.nombre.value;
 const ciudad = $form.ciudad.value;
 const comportamiento = $form.comportamiento.value;
@@ -69,12 +69,23 @@ function validarFormulario(event){
     };
     
     manejarErrores(errores)
+    
+    if(manejarErrores(errores)===0){
+        document.querySelector("#exito").className ='';
+        document.querySelector("#carta-a-santa").className='oculto';
+        setTimeout(
+            function(){
+                window.location.href = "file:///home/gregorio/Documents/ArgentinaPrograma(reddit)/js-xmas-edition-master/js-xmas-edition-Gregorio/wishlist.html"
+            },
+            5000
+        )
 
+    }
     
 }
 
 function manejarErrores(errores){
-   
+    let cantidadErrores = 0;
     const keys = Object.keys(errores);
     const $errores = document.querySelector("#errores")
     $errores.innerText = '';
@@ -86,15 +97,17 @@ function manejarErrores(errores){
             $error.innerText = error;
             $error.id = `${key}Error`
             $errores.appendChild($error);
+            cantidadErrores++;
         } else {
             $form[key].className = ""
             
         }
-
+   
     }
 
     );
-
+    console.log(`Hay ${cantidadErrores} error/es`);
+    return cantidadErrores; 
     // if(errores.nombre) {
     //     $form.nombre.className = "error";
 
