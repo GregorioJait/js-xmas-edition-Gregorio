@@ -63,7 +63,7 @@ function validarFormulario(event){
 
         nombre: errorNombre,
         ciudad: errorCiudad,
-        descripcionRegalo: errorDescripcionRegalo,
+        'descripcion-regalo': errorDescripcionRegalo,
 
 
     };
@@ -75,26 +75,44 @@ function validarFormulario(event){
 
 function manejarErrores(errores){
    
+    const keys = Object.keys(errores);
+    const $errores = document.querySelector("#errores")
+    $errores.innerText = '';
+    keys.forEach( function(key){
+        const error = errores[key];
+        if(error){
+            $form[key].className = "error"
+            const $error = document.createElement('li');
+            $error.innerText = error;
+            $error.id = `${key}Error`
+            $errores.appendChild($error);
+        } else {
+            $form[key].className = ""
+            
+        }
 
-
-    if(errores.nombre) {
-        $form.nombre.className = "error";
-
-    } else {
-        $form.nombre.className = "";
     }
 
-    if(errores.ciudad) {
-        $form.ciudad.className = "error";
-    } else {
-        $form.ciudad.className = "";
-    }
+    );
 
-    if(errores.descripcionRegalo){
-        $form["descripcion-regalo"].className = "error";
-    } else {
-        $form["descripcion-regalo"].className = "";
-    }
+    // if(errores.nombre) {
+    //     $form.nombre.className = "error";
+
+    // } else {
+    //     $form.nombre.className = "";
+    // }
+
+    // if(errores.ciudad) {
+    //     $form.ciudad.className = "error";
+    // } else {
+    //     $form.ciudad.className = "";
+    // }
+
+    // if(errores.descripcionRegalo){
+    //     $form["descripcion-regalo"].className = "error";
+    // } else {
+    //     $form["descripcion-regalo"].className = "";
+    // }
 
 }
 
